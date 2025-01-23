@@ -9,4 +9,12 @@ Route::get('/', function () {
 
 Route::get('/quran', [SuratController::class, 'index'])->name('quran.page');
 
-Route::get('/quran/{idSurat}', [SuratController::class, 'show'])->name('quran.show.page');
+Route::get('/quran/{idSurat}', [SuratController::class, 'show'])->name('surat_quran.page');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register.page');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login.page');

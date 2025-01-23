@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Surat;
 use App\Models\Ayat;
 
@@ -17,6 +16,6 @@ class SuratController extends Controller
     public function show($idSurat){
         $surats = Surat::all();
         $ayat = Ayat::where('idSurat', $idSurat)->get();
-        return view('quran', compact('surats', 'ayat', 'idSurat'));
+        return view('surat_quran', compact('surats', 'ayat', 'idSurat'));
     }
 }

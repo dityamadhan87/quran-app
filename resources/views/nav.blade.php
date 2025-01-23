@@ -2,8 +2,10 @@
     <nav class="flex gap-8 ml-10 h-full">
         <div class="flex items-center h-full logo"><a class="flex items-center h-full" href="#">Logo</a></div>
         <ul class="flex items-center h-full gap-8">
-            <li class="flex items-center h-full"><a class="flex items-center h-full" href="{{route('homepage.page')}}">Home Page</a></li>
-            <li class="flex items-center h-full"><a class="flex items-center h-full" href={{route('quran.page')}}>Al-Qur'an</a></li>
+            <li class="flex items-center h-full"><a class="flex items-center h-full"
+                    href={{route('homepage.page')}}>Home Page</a></li>
+            <li class="flex items-center h-full"><a class="flex items-center h-full"
+                    href={{route('quran.page')}}>Al-Qur'an</a></li>
             <li class="flex items-center h-full"><a class="flex items-center h-full" href="#">Trending
                     Fitrah</a></li>
             <li class="flex items-center h-full"><a class="flex items-center h-full" href="#">Upcoming Event</a>
@@ -16,9 +18,10 @@
         </ul>
     </nav>
     <div class="flex gap-5 mr-14 h-8">
-        <button class="w-[64px] bg-slate-200">Login</button>
-        <button class="w-[64px] bg-slate-200">Sign Up</button>
+        <a href="{{ route('login.page') }}" class="w-[64px] bg-slate-200 text-center py-1 rounded">Login</a>
+        <a href="{{ route('register.page') }}" class="w-[64px] bg-slate-200 text-center py-1 rounded">Sign Up</a>
     </div>
+
 </div>
 
 <div class="hidden absolute z-40 dropdown w-screen h-96 bg-slate-200 space-x-12">
