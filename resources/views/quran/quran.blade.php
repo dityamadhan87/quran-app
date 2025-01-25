@@ -10,7 +10,7 @@
 
 <body>
     <header class="fixed top-0 w-screen">
-        @include('nav')
+        @include('layouts.nav')
     </header>
     <main>
         <div class="flex flex-wrap gap-x-8 gap-y-4 bg-slate-500 mt-20 w-[66rem] mx-auto">

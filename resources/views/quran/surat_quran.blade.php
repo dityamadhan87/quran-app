@@ -10,7 +10,7 @@
 
 <body>
     <header class="fixed top-0 w-screen">
-        @include('nav')
+        @include('layouts.nav')
         <div class="flex z-10 justify-between items-center h-11 bg-slate-300">
             <nav class="ml-10">
                 <ul class="flex gap-8">
@@ -61,7 +61,9 @@
                     </div>
                     <div class="flex space-x-2 py-5">
                         <button><img src="{{asset('icon/play-icon.svg')}}"></button>
-                        <button><img src="{{asset('icon/like-icon.svg')}}"></button>
+                        <button class="like-btn" data-id="{{$item->idAyat}}">
+                            <img src="{{asset('icon/like' . (auth()->check() && $item->liked ? '_fill' : '_nofill') . '.svg')}}" class="like-icon">
+                        </button>
                         <button><img src="{{asset('icon/mark-icon.svg')}}"></button>
                         <button><img src="{{asset('icon/pen-note-icon.svg')}}"></button>
                     </div>
