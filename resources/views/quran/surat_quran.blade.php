@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -61,8 +62,9 @@
                     </div>
                     <div class="flex space-x-2 py-5">
                         <button><img src="{{asset('icon/play-icon.svg')}}"></button>
-                        <button class="like-btn" data-id="{{$item->idAyat}}">
-                            <img src="{{asset('icon/like' . (auth()->check() && $item->liked ? '_fill' : '_nofill') . '.svg')}}" class="like-icon">
+                        <button class="like-button" data-id="{{ $item->idAyat }}" data-surat="{{ $item->idSurat }}"
+                            data-liked="false">
+                            <img src="{{ asset('icon/like_nofill.svg') }}" alt="Like">
                         </button>
                         <button><img src="{{asset('icon/mark-icon.svg')}}"></button>
                         <button><img src="{{asset('icon/pen-note-icon.svg')}}"></button>
@@ -71,6 +73,74 @@
             @endforeach
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const likeButtons = document.querySelectorAll('.like-button');
+            const userLoggedIn = @json(Auth::check());
+
+            if (!userLoggedIn) {
+                likeButtons.forEach(button => {
+                    button.addEventListener('click', () => window.location.href = "{{ route('login') }}");
+                });
+                return;
+            }
+
+            // Ambil daftar ayat yang sudah di-like oleh user
+            const response = await fetch("{{ route('like.list') }}");
+            const likedAyat = await response.json();
+
+            // Tandai tombol like yang sudah di-like
+            likedAyat.forEach(item => {
+                const button = document.querySelector(`.like-button[data-id="${item.idAyat}"][data-surat="${item.idSurat}"]`);
+                if (button) {
+                    button.querySelector('img').src = "{{ asset('icon/like_fill.svg') }}";
+                    button.setAttribute('data-liked', 'true');
+                }
+            });
+
+            // Handle klik tombol like/unlike
+            likeButtons.forEach(button => {
+                button.addEventListener('click', async function () {
+                    const ayatId = this.getAttribute('data-id');
+                    const suratId = this.getAttribute('data-surat');
+                    const isLiked = this.getAttribute('data-liked') === 'true';
+
+                    const likeIcon = this.querySelector('img');
+                    try {
+                        const response = await fetch("{{ route('like.toggle') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                ayat_id: ayatId,
+                                surat_id: suratId,
+                                action: isLiked ? 'unlike' : 'like'
+                            })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            if (data.liked) {
+                                likeIcon.src = "{{ asset('icon/like_fill.svg') }}";
+                                this.setAttribute('data-liked', 'true');
+                            } else {
+                                likeIcon.src = "{{ asset('icon/like_nofill.svg') }}";
+                                this.setAttribute('data-liked', 'false');
+                            }
+                        } else {
+                            alert(data.message || 'Terjadi kesalahan.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat memproses permintaan.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
