@@ -15,28 +15,22 @@
         <div class="pt-10">
             <h1>Fitrah Mind</h1>
         </div>
-        <form class="flex flex-col gap-4 h-96 w-64">
-            <div class="flex flex-col gap-1">
-                <label>Name</label>
-                <input type="text" placeholder="Name" required>
-            </div>
+        <form method="POST" action="{{route('login')}}" class="flex flex-col gap-4 h-96 w-64">
+            @csrf
             <div class="flex flex-col gap-1">
                 <label>Email</label>
-                <input type="email" placeholder="Email" required>
+                <input type="email" placeholder="Email" id="email" name="email" required>
             </div>
             <div class="flex flex-col gap-1">
                 <label>Password</label>
-                <input type="password" placeholder="Password" required>
+                <input id="password" name="password" type="password" placeholder="Password" required>
             </div>
-            <div class="flex flex-col gap-1">
-                <label>Confirm Password</label>
-                <input type="password" placeholder="Confirm Password" required>
-            </div>
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
+            <button type="submit">Login with Google</button>
         </form>
         <div class="pb-10">
-            <a href="{{ route('login.page') }}">
-                <h1>I Have Account</h1>
+            <a href="{{ route('register') }}">
+                <h1>Create New Account</h1>
             </a>
         </div>
     </div>

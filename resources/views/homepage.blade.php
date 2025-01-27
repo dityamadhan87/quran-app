@@ -11,7 +11,7 @@
 
 <body>
     <header class="fixed top-0 w-screen">
-        @include('nav')
+        @include('layouts.nav')
     </header>
     <main>
         <div class="flex flex-col justify-center ml-10 space-y-7 h-[100vh]">
