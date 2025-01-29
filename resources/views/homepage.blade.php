@@ -10,24 +10,25 @@
 </head>
 
 <body>
-    <header class="fixed top-0 w-screen">
+    <header class="fixed top-0 w-screen z-20">
         @include('layouts.nav')
     </header>
-    <main>
-        <div class="flex flex-col justify-center ml-10 space-y-7 h-[100vh]">
-            <div class="space-y-7">
-                <h1 class="w-[42rem] font-roboto text-6xl font-bold">Menemukan Makna Hidup Melalui Cahaya Ilmu dan
+    <main class="z-10">
+        <div class="bg-[#D9D4AE] relative flex flex-col space-y-7 h-[100vh] pt-36 pl-16">
+            <img class="absolute w-[60rem] h-[40rem] right-0 bottom-0 object-cover opacity-50" src="{{ asset('images/rb_mosque.png') }}">
+            <div class="space-y-7 z-10">
+                <h1 class="w-[47rem] font-roboto text-6xl font-bold">Menemukan Makna Hidup Melalui Cahaya Ilmu dan
                     Kekhusyukan Ibadah</h1>
                 <h1 class="w-[40rem] font-roboto text-lg font-normal">Fitrah Mind hadir untuk membangun hati, pikiran,
                     dan karakter Islami melalui kemudahan teknologi.</h1>
             </div>
             <div>
-                <button class="bg-black">
+                <button class="rounded-2xl px-5 py-2 bg-[#3E2A1B]">
                     <h1 class="text-white">Baca Langsung</h1>
                 </button>
             </div>
         </div>
-        <div class="space-y-16 ml-10">
+        <div class="bg-[#446576] space-y-16 pt-12 pl-16">
             <div class="flex">
                 <div class="space-y-3">
                     <div>

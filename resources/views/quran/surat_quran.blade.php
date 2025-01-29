@@ -21,7 +21,7 @@
                                 onchange="document.getElementById('suratForm').action='/quran/' + this.value; document.getElementById('suratForm').submit();">
                                 @foreach ($surats as $item)
                                     <option value="{{ $item->idSurat }}" {{ $item->idSurat == $idSurat ? 'selected' : '' }}>
-                                        {{ $item->namaSurat }}
+                                        {{strval($item->idSurat) . " " . $item->namaSurat }}
                                     </option>
                                 @endforeach
                             </select>

@@ -1,20 +1,16 @@
-<div class="flex relative items-center justify-between h-11 bg-orange-200">
-    <nav class="flex gap-8 ml-10 h-full">
+<div class="flex relative items-center justify-between h-11 pl-16">
+    <nav class="flex gap-8 h-full">
         <div class="flex items-center h-full logo"><a class="flex items-center h-full" href="#">Logo</a></div>
         <ul class="flex items-center h-full gap-8">
-            <li class="flex items-center h-full"><a class="flex items-center h-full"
-                    href={{route('homepage')}}>Home Page</a></li>
-            <li class="flex items-center h-full"><a class="flex items-center h-full"
-                    href={{route('quran.page')}}>Al-Qur'an</a></li>
-            <li class="flex items-center h-full"><a class="flex items-center h-full" href="#">Trending
-                    Fitrah</a></li>
-            <li class="flex items-center h-full"><a class="flex items-center h-full" href="#">Upcoming Event</a>
-            </li>
-            <li class="flex items-center h-full group">
-                <a class="flex items-center h-full cursor-pointer" href="#">Lainnya
-                    <img src="{{ asset('icon/arrow-down-icon.svg') }}" class="ml-1 inline-block">
-                </a>
-            </li>
+            <x-nav-item href="{{ route('homepage') }}">Home Page</x-nav-item>
+            <x-nav-item href="{{ route('quran.page') }}">Al-Qur'an</x-nav-item>
+            <x-nav-item href="#">Trending Fitrah</x-nav-item>
+            <x-nav-item href="#">Upcoming Event</x-nav-item>
+            <x-nav-item href="#">Fitrah Article</x-nav-item>
+            <x-nav-item liClass="group" href="#">
+                Lainnya
+                <img src="{{ asset('icon/arrow-down-icon.svg') }}" class="ml-1 inline-block">
+            </x-nav-item>
         </ul>
     </nav>
     <div class="flex gap-5 mr-14 h-8">
@@ -24,7 +20,7 @@
         @else
             <div class="relative" x-data="{ open: false }">
                 <!-- Trigger -->
-                <button @click="open = !open" class="w-fit p-3 bg-slate-200 text-center py-1 rounded">
+                <button @click="open = !open" class="w-fit p-3 text-center py-1 rounded-2xl border-black border-2">
                     {{ Auth::user()->name }}
                 </button>
 
@@ -43,10 +39,9 @@
             </div>
         @endguest
     </div>
-
 </div>
 
-<div class="hidden absolute z-40 dropdown w-screen h-96 bg-slate-200 space-x-12">
+<div class="hidden absolute z-40 dropdown w-screen h-96 bg-[#D3F1DF] space-x-12">
     <div class="w-64 h-[21rem] mt-7 space-y-5">
         <div>
             <h1 class="font-roboto text-xs font-semibold">Jelajahi Fitur Kami</h1>
