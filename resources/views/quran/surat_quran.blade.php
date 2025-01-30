@@ -12,12 +12,12 @@
 <body>
     <header class="fixed top-0 w-screen">
         @include('layouts.nav')
-        <div class="flex z-10 justify-between items-center h-11 bg-slate-300">
-            <nav class="ml-10">
+        <div class="flex z-10 justify-between items-center h-14 bg-slate-300 px-10">
+            <nav>
                 <ul class="flex gap-8">
                     <li>
                         <form action="{{route('surat_quran.page', 1)}}" method="GET" id="suratForm">
-                            <select class="w-24 h-8" id="suratSelector"
+                            <select class="flex items-center justify-center w-48 h-10" id="suratSelector"
                                 onchange="document.getElementById('suratForm').action='/quran/' + this.value; document.getElementById('suratForm').submit();">
                                 @foreach ($surats as $item)
                                     <option value="{{ $item->idSurat }}" {{ $item->idSurat == $idSurat ? 'selected' : '' }}>
@@ -28,32 +28,30 @@
                         </form>
                     </li>
                     <li>
-                        <select class="w-24 h-8">
+                        <select class="flex items-center justify-center w-48 h-10">
                             @foreach ($ayat as $item)
                                 <option value="{{ $item->idAyat }}">{{ $item->idAyat }}</option>
                             @endforeach
                         </select>
                     </li>
-                    <li><select class="w-24 h-8"></select></li>
+                    <li><select class="flex items-center justify-center w-48 h-10"></select></li>
                 </ul>
             </nav>
-            <h1 class="mr-14">Juz 3 - Al-Baqarah - 270</h1>
+            <h1>Juz 3 - Al-Baqarah - 270</h1>
         </div>
     </header>
-    <main>
-        <div class="bg-slate-500 flex justify-center w-fit mx-auto gap-4 mt-28">
-            <button class="w-32 bg-slate-100">Al-Qur'an</button>
-            <button class="w-32 bg-slate-100">Tafsir Summary</button>
-            <button class="w-32 bg-slate-100">Aplikasi Dalam Kehidupan</button>
-            <button class="w-32 bg-slate-100">Note</button>
-            <button class="w-32 bg-slate-100">Favorite</button>
-        </div>
+    <main class="pt-36">
+        @include('layouts.nav-quran')
         <div class="flex flex-col items-center mt-7 gap-5">
             @foreach ($ayat as $item)
-                <div class="bg-slate-300 w-[55rem] h-fit">
+                <div class="bg-[#F5EFE7] w-[55rem] h-fit">
                     <div class="mt-6 mr-2">
-                        <div>
-                            <h1 class="text-right font-arabic text-3xl">{{ $item->teksArab }}</h1>
+                        <div class="flex items-center justify-between">
+                            <div class="relative flex items-center justify-center w-16">
+                                <h1 class="font-sans font-bold text-base z-20">{{ $item->idAyat }}</h1>
+                                <img class="absolute size-16" src="{{asset('icon/belah-ketupat.svg')}}">
+                            </div>
+                            <h1 class="font-arabic text-3xl">{{ $item->teksArab }}</h1>
                         </div>
                         <div>
                             <p class="text-lg font-sans text-right mt-6">{{ $item->abjadArab }}</p>

@@ -13,7 +13,8 @@ class SuratController extends Controller
         return view('quran.quran', compact('surats'));
     }
 
-    public function show($idSurat){
+    public function show($idSurat)
+    {
         $surats = Surat::all();
         $ayat = Ayat::where('idSurat', $idSurat)->get();
         return view('quran.surat_quran', compact('surats', 'ayat', 'idSurat'));
