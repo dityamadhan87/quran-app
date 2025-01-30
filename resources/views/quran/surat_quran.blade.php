@@ -58,13 +58,13 @@
                             <p class="ml-2 text-lg font-sans mt-4">{{ $item->artiIndonesia }}</p>
                         </div>
                     </div>
-                    <div class="flex space-x-2 py-5">
+                    <div class="flex gap-3 py-5">
                         <button><img src="{{asset('icon/play-icon.svg')}}"></button>
                         <button class="like-button" data-id="{{ $item->idAyat }}" data-surat="{{ $item->idSurat }}"
                             data-liked="false">
                             <img src="{{ asset('icon/like_nofill.svg') }}" alt="Like">
                         </button>
-                        <button><img src="{{asset('icon/mark-icon.svg')}}"></button>
+                        <button><img src="{{asset('icon/mark-icon-nofill.svg')}}"></button>
                         <button><img src="{{asset('icon/pen-note-icon.svg')}}"></button>
                     </div>
                 </div>
