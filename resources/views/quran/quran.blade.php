@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <header class="fixed top-0 w-screen z-10">
+    <header class="fixed top-0 w-screen">
         @include('layouts.nav')
     </header>
     <main class="pt-20 bg-[white]">
@@ -21,17 +21,11 @@
                 <div class="flex items-start gap-2">
                     <img class="w-7" src="{{ asset('icon/like_fill.svg') }}">
                     <h1 class="font-roboto text-lg font-medium text-black">Ayat Favoritmu</h1>
-                    {{-- @foreach ($favoriteAyats as $test)
-                        <h1 class="font-roboto text-lg font-medium text-black">{{ $test->idAyat }}</h1>
-                    @endforeach --}}
                 </div>
                 <div>
                     <img src="{{ asset('icon/arrow-down-icon.svg') }}">
                 </div>
             </div>
-            {{-- <div class="border-white border-2 w-full h-20"></div>
-            <div class="border-white border-2 w-full h-20"></div>
-            <div class="border-white border-2 w-full h-20"></div> --}}
         </div>
         <div class="flex flex-wrap gap-x-8 gap-y-10 mt-10 w-[76rem] mx-auto">
             @foreach ($surats as $item)

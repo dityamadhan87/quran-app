@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
 
@@ -59,5 +60,9 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::post('/like/toggle', [LikeController::class, 'toggleLike'])->name('like.toggle');
+    Route::post('/quran/bookmark', [BookmarkController::class, 'simpanBookmark']);
+    Route::get('/quran/bookmark/list', [BookmarkController::class, 'getListBookmark']);
+    Route::post('/quran/bookmark/ayat', [BookmarkController::class, 'simpanAyatBookmark']);
+    Route::post('/quran/bookmark/ayat/list', [BookmarkController::class, 'getAyatBookmark']);
     Route::get('/like/list', [LikeController::class, 'getLikedAyat'])->name('like.list');
 });

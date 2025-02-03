@@ -47,9 +47,9 @@
                 <div class="bg-[#F5EFE7] w-[55rem] h-fit">
                     <div class="mt-6 mr-2">
                         <div class="flex items-center justify-between">
-                            <div class="relative flex items-center justify-center w-16">
-                                <h1 class="font-sans font-bold text-base z-20">{{ $item->idAyat }}</h1>
-                                <img class="absolute size-16" src="{{asset('icon/belah-ketupat.svg')}}">
+                            <div class="flex items-center justify-center w-16">
+                                <img class="size-16" src="{{asset('icon/belah-ketupat.svg')}}">
+                                <h1 class="font-sans font-bold text-base">{{ $item->idAyat }}</h1>
                             </div>
                             <h1 class="font-arabic text-3xl">{{ $item->teksArab }}</h1>
                         </div>
@@ -64,80 +64,45 @@
                             data-liked="false">
                             <img src="{{ asset('icon/like_nofill.svg') }}" alt="Like">
                         </button>
-                        <button><img src="{{asset('icon/mark-icon-nofill.svg')}}"></button>
+                        <button class="mark-button" data-id="{{ $item->idAyat }}" data-surat="{{ $item->idSurat }}">
+                            <img src="{{asset('icon/mark-icon.svg')}}">
+                        </button>
                         <button><img src="{{asset('icon/pen-note-icon.svg')}}"></button>
                     </div>
                 </div>
             @endforeach
         </div>
+
+        <div id="overlay"
+            class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 hidden justify-center items-center">
+            <div class="bg-white p-5 rounded-lg w-96 shadow-lg">
+                <h2 class="text-xl font-bold">Bookmark QS Al-Baqarah Ayat 28</h2>
+
+                <form id="bookmarkForm">
+                    <input type="text" name="nama_koleksi" class="w-full border border-gray-300 rounded mt-2" placeholder="Nama Koleksi" required>
+                    <button type="submit" class="w-full bg-blue-500 text-white rounded mt-2 h-9">Simpan</button>
+                    <input type="search" name="cariTag" class="w-full border border-gray-300 rounded mt-2" placeholder="Cari Tag">
+                </form>
+
+                <h2 class="text-lg font-bold">Koleksi</h2>
+
+                <form id="bookmark-ayat-form">
+                    <input type="hidden" name="idAyat" id="idAyat">
+                    <input type="hidden" name="idSurat" id="idSurat">
+
+                    <div id="list-bookmark" class="flex flex-col h-24 overflow-y-auto">
+                        @csrf
+                    </div>
+                    <div class="mt-4 flex justify-end gap-3">
+                        <button type="button" id="closeOverlay" class="px-4 py-2 bg-gray-300 rounded">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Tandai</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const likeButtons = document.querySelectorAll('.like-button');
-            const userLoggedIn = @json(Auth::check());
-
-            if (!userLoggedIn) {
-                likeButtons.forEach(button => {
-                    button.addEventListener('click', () => window.location.href = "{{ route('login') }}");
-                });
-                return;
-            }
-
-            // Ambil daftar ayat yang sudah di-like oleh user
-            const response = await fetch("{{ route('like.list') }}");
-            const likedAyat = await response.json();
-
-            // Tandai tombol like yang sudah di-like
-            likedAyat.forEach(item => {
-                const button = document.querySelector(`.like-button[data-id="${item.idAyat}"][data-surat="${item.idSurat}"]`);
-                if (button) {
-                    button.querySelector('img').src = "{{ asset('icon/like_fill.svg') }}";
-                    button.setAttribute('data-liked', 'true');
-                }
-            });
-
-            // Handle klik tombol like/unlike
-            likeButtons.forEach(button => {
-                button.addEventListener('click', async function () {
-                    const ayatId = this.getAttribute('data-id');
-                    const suratId = this.getAttribute('data-surat');
-                    const isLiked = this.getAttribute('data-liked') === 'true';
-
-                    const likeIcon = this.querySelector('img');
-                    try {
-                        const response = await fetch("{{ route('like.toggle') }}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                ayat_id: ayatId,
-                                surat_id: suratId,
-                                action: isLiked ? 'unlike' : 'like'
-                            })
-                        });
-
-                        const data = await response.json();
-
-                        if (response.ok) {
-                            if (data.liked) {
-                                likeIcon.src = "{{ asset('icon/like_fill.svg') }}";
-                                this.setAttribute('data-liked', 'true');
-                            } else {
-                                likeIcon.src = "{{ asset('icon/like_nofill.svg') }}";
-                                this.setAttribute('data-liked', 'false');
-                            }
-                        } else {
-                            alert(data.message || 'Terjadi kesalahan.');
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan saat memproses permintaan.');
-                    }
-                });
-            });
-        });
+        window.userLoggedIn = @json(Auth::check());
     </script>
 </body>
 

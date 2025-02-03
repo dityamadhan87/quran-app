@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="hidden z-40 dropdown w-screen h-96 bg-[#D8C4B6] space-x-12 pt-7">
+<div class="absolute hidden z-40 dropdown w-screen h-96 bg-[#D8C4B6] space-x-12 pt-7">
     <div class="w-64 space-y-5">
         <div>
             <h1 class="font-roboto text-xs font-semibold">Jelajahi Fitur Kami</h1>
